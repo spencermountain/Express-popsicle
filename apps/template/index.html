@@ -1,0 +1,37 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./css/house.css">
+  <script src="../../js/jquery.js"></script>
+  <script>
+  $(document).ready(function(){
+
+    //set variables
+    var query=$("#pad");
+    var answer=$("#answer");
+
+    //event listener
+    query.keyup(function() {
+      window.clearTimeout(timeoutID); //for fast typing
+      timeoutID = window.setTimeout(function()
+      {
+        var q = query.val();
+        answer.html("<img src='http://acre.freebase.com/api/trans/raw/m/05czlv7'>");
+        var url = 'https://www.googleapis.com/freebase/v1/search?query=' + encodeURIComponent(q) + '&limit=1';
+        $.get(url, function(the) {
+          var html = the.result.map(function(v){return '<li>'+v.notable.name+'</li>'}).join('')
+          answer.html('<ul>'+html+'<ul>');
+        })
+        .error(function() { answer.html("error"); });
+      }, 800);
+    });
+
+    var timeoutID = window.setTimeout(function(){query.trigger('keyup')}, 80);
+  });
+</script>
+</head>
+
+<body>
+  <input type="text" id="pad" style="" value="jfk"/>
+  <div id="answer" style="position:relative; width:100%;"></div>
+</body>
+</html>
