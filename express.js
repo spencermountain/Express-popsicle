@@ -1,6 +1,8 @@
 var http = require("http");
 var fs = require("fs");
 var express = require('express');
+var sys = require('util');
+var exec = require('child_process').exec;
 var app = express();
 app.enable("jsonp callback");
 app.use( express.static(__dirname + '/' ) )
@@ -18,10 +20,24 @@ app.get('/rest/:app/:method', function(req, res){
 				res.send(500, fail())
 		}
 });
+
 //fail nicely
+app.get('/test*', function(req, res){
+		res.json({hai:true});
+});
+
 app.get('/rest*', function(req, res){
 		res.send(500, fail())
 });
+
+
+app.get('/update', function(req, res){
+	exec("git pull", puts);
+	//exec("forever stopall && git pull && echo 'hiiii' && forever start express.js", puts);
+	function puts(error, stdout, stderr) { sys.puts(stdout) }
+})
+
+
 
 //find all the apps, and their methods
 var apps={}

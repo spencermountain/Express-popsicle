@@ -14,7 +14,7 @@
       window.clearTimeout(timeoutID); //for fast typing
       timeoutID = window.setTimeout(function()
       {
-        var q = query.val();
+        var q = query.text();
         answer.html("<img src='http://acre.freebase.com/api/trans/raw/m/05czlv7'>");
         var url = 'https://www.googleapis.com/freebase/v1/search?query=' + encodeURIComponent(q) + '&limit=1';
         $.get(url, function(the) {
@@ -31,7 +31,7 @@
 </head>
 
 <body>
-  <input type="text" id="pad" style="" value="jfk"/>
+              <span id="pad" style="min-width:100px; border-radius:5px;  width:95%; border:1px solid grey; padding:6px; font-size:55px; display:block;" id="pad" contenteditable="true">jfk</span>
   <div id="answer" style="position:relative; width:100%;"></div>
 </body>
 </html>
