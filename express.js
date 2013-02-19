@@ -23,7 +23,7 @@ app.get('/rest/:app/:method', function(req, res){
 
 //fail nicely
 app.get('/test*', function(req, res){
-		res.json({hai:true});
+		res.json({haallo:true});
 });
 
 app.get('/rest*', function(req, res){
